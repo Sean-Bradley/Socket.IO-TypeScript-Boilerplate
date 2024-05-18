@@ -1,1 +1,1 @@
-# Socket.IO-TypeScript-Boilerplate
+# Socket.IO TypeScript Boilerplate
