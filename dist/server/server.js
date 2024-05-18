@@ -25,18 +25,7 @@ class App {
         this.io = new socket_io_1.Server(this.server);
         this.io.on('connection', (socket) => {
             console.log('a user connected : ' + socket.id);
-            socket.emit('message', 'Hello ' + socket.id);
-            socket.on('disconnect', function () {
-                console.log('socket disconnected : ' + socket.id);
-            });
-            socket.on('message', function (message) {
-                console.log(message);
-            });
         });
-        setInterval(() => {
-            let randomNumber = Math.floor(Math.random() * 10);
-            this.io.emit('random', randomNumber);
-        }, 1000);
     }
     Start() {
         this.server.listen(this.port, () => {
