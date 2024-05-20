@@ -2,35 +2,24 @@
 // When starting this project by using `npm run dev`, this server script
 // will be compiled using tsc and will be running concurrently along side webpack-dev-server
 // visit http://127.0.0.1:8080
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 // In the production environment we don't use the webpack-dev-server, so instead type,
 // `npm run build`        (this creates the production version of bundle.js and places it in ./dist/client/)
 // `tsc -p ./src/server`  (this compiles ./src/server/server.ts into ./dist/server/server.js)
 // `npm start            (this starts nodejs with express and serves the ./dist/client folder)
 // visit http://127.0.0.1:3000
-const express_1 = __importDefault(require("express"));
-const path_1 = __importDefault(require("path"));
-const http_1 = __importDefault(require("http"));
+const http_1 = require("http");
 const socket_io_1 = require("socket.io");
+const express = require("express");
+const path = require("path");
 const port = 3000;
-class App {
-    constructor(port) {
-        this.port = port;
-        const app = (0, express_1.default)();
-        app.use(express_1.default.static(path_1.default.join(__dirname, '../client/')));
-        this.server = new http_1.default.Server(app);
-        this.io = new socket_io_1.Server(this.server);
-        this.io.on('connection', (socket) => {
-            console.log('a user connected : ' + socket.id);
-        });
-    }
-    Start() {
-        this.server.listen(this.port, () => {
-            console.log(`Socket.IO listening on port ${this.port}.`);
-        });
-    }
-}
-new App(port).Start();
+const app = express();
+app.use(express.static(path.join(__dirname, '../client')));
+const server = (0, http_1.createServer)(app);
+const io = new socket_io_1.Server(server);
+io.on('connection', (socket) => {
+    console.log('a user connected : ' + socket.id);
+});
+server.listen(port, () => {
+    console.log('Server listening on port ' + port);
+});

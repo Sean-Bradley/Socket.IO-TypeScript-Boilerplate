@@ -8,39 +8,24 @@
 // `npm start            (this starts nodejs with express and serves the ./dist/client folder)
 // visit http://127.0.0.1:3000
 
-import express from 'express'
-import path from 'path'
-import http from 'http'
+import { createServer } from 'http'
 import { Server, Socket } from 'socket.io'
+import * as express from 'express'
+import * as path from 'path'
 
-const port: number = 3000
+const port = 3000
 
-class App {
-    private server: http.Server
-    private port: number
+const app = express()
+app.use(express.static(path.join(__dirname, '../client')))
 
-    private io: Server
+const server = createServer(app)
 
-    constructor(port: number) {
-        this.port = port
+const io = new Server(server)
 
-        const app = express()
-        app.use(express.static(path.join(__dirname, '../client/')))
+io.on('connection', (socket: Socket) => {
+  console.log('a user connected : ' + socket.id)
+})
 
-        this.server = new http.Server(app)
-
-        this.io = new Server(this.server)
-
-        this.io.on('connection', (socket: Socket) => {
-            console.log('a user connected : ' + socket.id)
-        })
-    }
-
-    public Start() {
-        this.server.listen(this.port, () => {
-            console.log(`Socket.IO listening on port ${this.port}.`)
-        })
-    }
-}
-
-new App(port).Start()
+server.listen(port, () => {
+  console.log('Server listening on port ' + port)
+})
