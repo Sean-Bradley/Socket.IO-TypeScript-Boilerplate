@@ -1,9 +1,10 @@
 {
-    "compilerOptions": {
-      "target": "ES6",
-      "module": "commonjs",
-      "outDir": "../../dist/server"
-    },
-    "include": ["**/*.ts"]
-  }
-  
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "../../dist/server",
+    "strict": true,
+    "noUnusedLocals": true
+  },
+  "include": ["**/*.ts"]
+}

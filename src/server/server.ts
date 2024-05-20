@@ -9,7 +9,7 @@
 // visit http://127.0.0.1:3000
 
 import { createServer } from 'http'
-import { Server, Socket } from 'socket.io'
+import { Server } from 'socket.io'
 import * as express from 'express'
 import * as path from 'path'
 
@@ -22,7 +22,7 @@ const server = createServer(app)
 
 const io = new Server(server)
 
-io.on('connection', (socket: Socket) => {
+io.on('connection', (socket) => {
   console.log('a user connected : ' + socket.id)
 })
 

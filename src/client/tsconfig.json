@@ -1,10 +1,11 @@
 {
-    "compilerOptions": {
-      "target": "ESNext",
-      "module": "NodeNext",
-      "outDir": "../../dist/client/",
-      "moduleResolution": "NodeNext",
-      "strict": true
-    },
-    "include": ["**/*.ts"]
-  }
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "outDir": "../../dist/client/",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noUnusedLocals": true
+  },
+  "include": ["**/*.ts"]
+}
