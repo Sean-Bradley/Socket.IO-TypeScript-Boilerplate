@@ -10,7 +10,7 @@
 
 import { createServer } from 'http'
 import { Server } from 'socket.io'
-import * as express from 'express'
+import express from 'express'
 import * as path from 'path'
 
 const port = 3000
